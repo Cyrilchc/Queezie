@@ -1,5 +1,5 @@
 # Queezie : Un Quizz avec dotnet core / Nodejs / mysql db
-
+![Quiz](app.PNG)
 ## Introduction
 La solution se compose de :
 - Un front-end avec ASP.Net Core razor pages
