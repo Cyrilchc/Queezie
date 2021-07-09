@@ -1,0 +1,100 @@
+﻿@page
+@using Queezie.Models
+@model Queezie.Pages.LinkQuestionToAnswerModel
+@{
+    ViewData["Title"] = "Lier des réponses à une question";
+}
+
+<h1>Réponses d'une question</h1>
+<hr />
+<br />
+<h2>Ajouter une réponse à la question : @Model.DisplayQuestionModel.Question</h2>
+
+<form method="post">
+    <input type="text" asp-for="DisplayLink.QuestionId" class="form-control" hidden="hidden" value="@Model.DisplayQuestionModel.Id" />
+    <div class="form-group">
+        <select class="form-control" id="inlineFormCustomSelect" asp-for="DisplayLink.AnswerId" asp-items="@Model.Answers">
+        </select>
+        <span asp-validation-for="DisplayLink.AnswerId" class="text-danger"></span>
+    </div>
+    <br />
+
+    @switch (Model.DisplayQuestionTypeModel.QuestionType)
+    {
+        case "Simple":
+        case "Boolean":
+            if (Model.DisplayAnswers.Count > 3)
+            {
+                <p style="color:orange">Impossible d'ajouter davantage de réponses à cette question.</p>
+                <br />
+                <button type="submit" class="btn btn-secondary" disabled>Ajouter</button>
+            }
+            else
+            {
+                if (Model.DisplayAnswers.Any(x => x.Type == true))
+                {
+                    <p style="color:red">Attention, cette question a déjà une réponse correcte définie. (question de type @Model.DisplayQuestionTypeModel.QuestionType)</p>
+                }
+
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+            }
+            break;
+        case "Multiple":
+            if (Model.DisplayAnswers.Count > 3)
+            {
+                <p style="color:orange">Impossible d'ajouter davantage de réponses à cette question.</p>
+                <br />
+                <button type="submit" class="btn btn-secondary" disabled>Ajouter</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+            }
+            break;
+    }
+</form>
+
+<br />
+<br />
+<h2>Réponses ajoutées</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayAnswers[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayAnswers[0].Answer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayAnswers[0].Type)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.DisplayAnswers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Answer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="text" asp-for="DisplayLink.QuestionId" class="form-control" hidden="hidden" value="@Model.DisplayQuestionModel.Id" />
+                        <button type="submit" class="btn btn-danger" asp-page-handler="delete"
+                                asp-route-id="@item.Id">
+                            Supprimer
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

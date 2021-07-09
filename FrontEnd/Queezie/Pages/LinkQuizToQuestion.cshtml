@@ -1,0 +1,72 @@
+﻿@page
+@model Queezie.Pages.LinkQuizToQuestionModel
+@{
+    ViewData["Title"] = "Lier des questions à Quiz";
+}
+
+<h1>Questions d'un quiz</h1>
+<hr/>
+<br/>
+<h2>Ajouter une question au quiz : @Model.DisplayQuizModel.Quiz</h2>
+
+<form method="post">
+    <input type="text" asp-for="DisplayLink.QuizId" class="form-control" hidden="hidden" value="@Model.DisplayQuizModel.Id" />
+    <div class="form-group">
+        <select class="form-control" id="inlineFormCustomSelect" asp-for="DisplayLink.QuestionId" asp-items="@Model.Questions">
+        </select>
+        <span asp-validation-for="DisplayLink.QuestionId" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+
+<br />
+<br />
+<h2>Questions ajoutées</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayQuestions[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayQuestions[0].Question)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayQuestions[0].DomainId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayQuestions[0].QuestionTypeId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.DisplayQuestions)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DomainId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionTypeId)
+            </td>
+            <td>
+                <form method="post">
+                    <input type="text" asp-for="DisplayLink.QuizId" class="form-control" hidden="hidden" value="@Model.DisplayQuizModel.Id" />
+                    <button type="submit" class="btn btn-danger" asp-page-handler="delete"
+                            asp-route-id="@item.Id">
+                        Supprimer
+                    </button>
+                </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

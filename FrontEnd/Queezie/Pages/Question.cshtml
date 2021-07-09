@@ -1,0 +1,90 @@
+﻿@page
+@model QuestionModel
+@{
+    ViewData["Title"] = "Questions";
+}
+
+<h1>Questions</h1>
+<hr/>
+<br/>
+<h2>Créer une nouvelle question</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="DisplayQuestion.Question" class="control-label"></label>
+        <input type="text" asp-for="DisplayQuestion.Question" class="form-control" />
+        <span asp-validation-for="DisplayQuestion.Question" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <select class="form-control" id="inlineFormCustomSelect" asp-for="DisplayQuestion.QuestionTypeId" asp-items="@Model.QuestionTypes">
+        </select>
+        <span asp-validation-for="DisplayQuestion.QuestionTypeId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <select class="form-control" id="inlineFormCustomSelect" asp-for="DisplayQuestion.DomainId" asp-items="@Model.Domains">
+        </select>
+        <span asp-validation-for="DisplayQuestion.DomainId" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Créer</button>
+</form>
+
+<br />
+<br />
+<h2>Questions ajoutées</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions[0].Question)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions[0].DomainId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions[0].QuestionTypeId)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Questions)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DomainId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionTypeId)
+            </td>
+            <td>
+                <form method="post">
+                    <button type="submit" class="btn btn-danger" asp-page-handler="delete"
+                            asp-route-id="@item.Id">
+                        Supprimer
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form method="post">
+                    <button type="submit" class="btn btn-secondary" asp-page-handler="answers"
+                            asp-route-id="@item.Id">
+                        Modifier les réponses
+                    </button>
+                </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

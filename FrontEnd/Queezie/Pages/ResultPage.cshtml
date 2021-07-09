@@ -1,0 +1,15 @@
+﻿@page
+@model Queezie.Pages.ResultPageModel
+@{
+    ViewData["Title"] = "Résultats";
+}
+
+<div class="jumbotron">
+    <h1 class="display-4">Votre partie est terminée</h1>
+    <h2 class="display-4">Votre score : <strong style="color:green">@Model.ResultScore</strong></h2>
+    <p class="lead">Merci d'avoir joué !</p>
+    <hr class="my-4">
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" asp-page="/Game" role="button">Relancer une partie</a>
+    </p>
+</div>

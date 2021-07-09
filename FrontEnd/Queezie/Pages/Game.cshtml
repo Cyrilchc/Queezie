@@ -1,0 +1,89 @@
+﻿@page
+@using Models
+@model Queezie.Pages.GameModel
+@{
+    ViewData["Title"] = "Jeu";
+    int i = 0;
+}
+
+@{
+    if (Model.SelectedQuiz == null)
+    {
+        <h1>Sélectionnez un Quiz pour démarrer</h1>
+        <br/>
+        <form method="post">
+            <div class="form-group">
+                <select class="form-control" id="inlineFormCustomSelect" asp-for="SelectedQuiz.Id" asp-items="@Model.Quizs">
+                </select>
+                <span asp-validation-for="SelectedQuiz.Id" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Lancer la partie !</button>
+        </form>
+    }
+    else
+    {
+        <h1>Répondez à la question : </h1>
+        <br/>
+        <h2>@Model.DisplayGameQuestionAnswer.Question.Question</h2>
+        <br/>
+        string questionType = Model.DisplayGameQuestionAnswer.Question.QuestionType;
+        string questionTypeQuoted = $"\"{questionType}\"";
+        switch (questionType)
+        {
+            case "Simple":
+            case "Boolean":
+                <p id="simplealert">Une seule réponse à cocher</p>
+                break;
+            case "Multiple":
+                <p>Plusieurs réponses possibles à cocher</p>
+                break;
+        }
+
+        <form method="post" id="formdiv">
+            @foreach (DisplayAnswerModel answer in Model.DisplayGameQuestionAnswer.Answers)
+            {
+            <div class="form-check">
+                <input class="form-check-input" style="font-size:10em" type="text" asp-for="SelectedQuiz.Id" value="@Model.SelectedQuiz.Id" hidden="hidden">
+
+                <input class="form-check-input" style="font-size:10em" type="text" asp-for="DisplayGameQuestionAnswer.Answers[i].Answer" value="@answer.Answer" hidden="hidden">
+                <input class="form-check-input" style="font-size:10em" type="checkbox" asp-for="DisplayGameQuestionAnswer.Answers[i].Type" value="@answer.Type" hidden="hidden">
+                <input class="form-check-input" onclick="CheckTheCheck(@questionTypeQuoted)" style="font-size:10em" type="checkbox" asp-for="DisplayGameQuestionAnswer.Answers[i].PlayerAnswer">
+
+                @*@switch (questionType)
+                {
+                    case "Simple":
+                    case "Boolean":
+                        <input class="form-check-input" style="font-size:10em" type="radio" value="@answer.PlayerAnswer" asp-for="DisplayGameQuestionAnswer.Answers[i].PlayerAnswer">
+                        break;
+                    case "Multiple":
+                        <input class="form-check-input" style="font-size:10em" type="checkbox" asp-for="DisplayGameQuestionAnswer.Answers[i].PlayerAnswer">
+                        break;
+                }*@
+
+                <label class="form-check-label">
+                    @answer.Answer
+                </label>
+            </div>
+                i++;
+            }
+
+            <br/>
+            <button type="submit" class="btn btn-primary">Répondre</button>
+        </form>
+    }
+}
+
+<script>
+    function CheckTheCheck(questionType) {
+        if (questionType == "Simple" || questionType == "Boolean") {
+            var checkedBoxes = $("div :checkbox:checked").length - $("div :checkbox:checked:hidden").length;
+            if (checkedBoxes > 1) {
+                $("#simplealert").css({
+                    'color': 'red', 'font-weight': 'bolder', 'font-size': 'x-large', 'transition': '0.5s'})
+            }
+            else {
+                $("#simplealert").css({ 'color': '', 'font-weight': '', 'font-size': '' })
+            }
+        }
+    }
+</script>

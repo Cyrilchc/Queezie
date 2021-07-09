@@ -1,0 +1,70 @@
+﻿@page
+@model AnswerModel
+@{
+    ViewData["Title"] = "Réponses";
+}
+
+<h1>Réponses</h1>
+<hr/>
+<br/>
+<h2>Créer une nouvelle réponse</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="DisplayAnswer.Answer" class="control-label"></label>
+        <input type="text" asp-for="DisplayAnswer.Answer" class="form-control" />
+        <span asp-validation-for="DisplayAnswer.Answer" class="text-danger"></span>
+    </div>
+    <div class="form-check">
+        <input type="checkbox" asp-for="DisplayAnswer.Type" class="form-check-input" />
+        <label class="form-check-label" asp-for="DisplayAnswer.Type"></label>
+        <span asp-validation-for="DisplayAnswer.Type" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Créer</button>
+</form>
+
+<br/>
+<br/>
+<h2>Réponses ajoutées</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Answers[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Answers[0].Answer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Answers[0].Type)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Answers)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Answer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                <form method="post">
+                    <button type="submit" class="btn btn-danger" asp-page-handler="delete"
+                            asp-route-id="@item.Id">
+                        Supprimer
+                    </button>
+                </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

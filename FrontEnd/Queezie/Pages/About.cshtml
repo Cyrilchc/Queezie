@@ -1,0 +1,23 @@
+﻿@page
+@model AboutModel
+@using Westwind.AspNetCore.Markdown
+@{
+    ViewData["Title"] = "À propos";
+}
+
+<h1>À propos</h1>
+
+<h2>Sujet</h2>
+<iframe src="sujet.pdf" width="100%" height="1000px">
+</iframe>
+
+<br />
+<br />
+<br />
+<br />
+
+<h2>Lisez moi du projet</h2>
+
+<div class="card" style="padding:2em">
+    @Markdown.ParseHtmlStringFromFile("~/README.md")
+</div>

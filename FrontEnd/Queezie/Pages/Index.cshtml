@@ -1,0 +1,19 @@
+﻿@page
+@using Models
+@model IndexModel
+@{
+    ViewData["Title"] = "Accueil";
+}
+
+<div class="jumbotron">
+    <h1 class="display-4">Bonjour !</h1>
+    <p class="lead">Bienvenue sur Queezie</p>
+    <hr class="my-4">
+    <p>Répondez au quiz de votre choix !</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" asp-page="/Game" role="button">Lancer une partie</a>
+    </p>
+    <p>Vous pouvez personnaliser vos parties en utilisant le menu <code style="font-size:large">Données</code></p>
+</div>
+
+
