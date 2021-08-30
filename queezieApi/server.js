@@ -24,8 +24,9 @@ app.get('/', (req, res) => {
  * Get answers
  */
 app.get('/answers', function (req, res) {
-    let sql = `select * from answer`;
-    db.query(sql, function (err, data, fields) {
+    let sql = "select * from ??";
+    let inserts = ['answer']
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -41,8 +42,10 @@ app.get('/answers', function (req, res) {
  * Get answer by id
  */
 app.get('/answers/:id', function (req, res) {
-    let sql = `select * from answer where id=${req.params.id}`;
-    db.query(sql, function (err, data, fields) {
+    // let sql = `select * from answer where id=${req.params.id}`;
+    let sql = "select * from ?? where ??=?";
+    let inserts = ['answer', 'id', req.params.id]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -58,8 +61,9 @@ app.get('/answers/:id', function (req, res) {
  * Insert answer 
  */
 app.post('/answers/', function (req, res) {
-    let sql = `insert into answer (answer, type) values('${req.body.answer}', '${req.body.type}');`;
-    db.query(sql, function (err, data, fields) {
+    let sql = "insert into ?? (??, ??) values('??', '??');";
+    let inserts = ['answer', 'answer', 'type', req.body.answer, req.body.type]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -80,8 +84,9 @@ app.post('/answers/', function (req, res) {
  * Delete answer 
  */
 app.delete('/answers/:id', function (req, res) {
-    let sql = `delete from answer where id='${req.params.id}'`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `delete from ?? where ??=?`;
+    let inserts = ['answer', 'id', req.params.id]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -105,8 +110,9 @@ app.delete('/answers/:id', function (req, res) {
  * Get domains
  */
 app.get('/domains', function (req, res) {
-    let sql = `select * from domain`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ??`;
+    let inserts = ['domain']
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -123,8 +129,9 @@ app.get('/domains', function (req, res) {
  * Get domain by id
  */
 app.get('/domains/:id', function (req, res) {
-    let sql = `select * from domain where id=${req.params.id}`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ?? where ??=?`;
+    let inserts = ['domain', 'id', req.params.id]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -140,8 +147,9 @@ app.get('/domains/:id', function (req, res) {
  * Insert domain 
  */
 app.post('/domains/', function (req, res) {
-    let sql = `insert into domain (domain) values('${req.body.domain}');`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `insert into ?? (??) values('??');`;
+    let inserts = ['domain', 'domain', req.body.domain]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -161,8 +169,9 @@ app.post('/domains/', function (req, res) {
  * Delete domain 
  */
 app.delete('/domains/:id', function (req, res) {
-    let sql = `delete from domain where id='${req.params.id}'`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `delete from ?? where ??=?`;
+    let inserts = ['domain', 'id', req.params.id]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -186,8 +195,9 @@ app.delete('/domains/:id', function (req, res) {
  * Get linked questionanswer
  */
 app.get('/linkquestionanswers', function (req, res) {
-    let sql = `select * from linkquestionanswer`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ??`;
+    let inserts = ['linkquestionanswer']
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -203,8 +213,9 @@ app.get('/linkquestionanswers', function (req, res) {
  * Get linked questionanswer by id
  */
 app.get('/linkquestionanswers/:id', function (req, res) {
-    let sql = `select * from linkquestionanswer where id='${req.params.id}'`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ?? where ??=?`;
+    let inserts = ['linkquestionanswer', 'id', req.params.id]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -220,8 +231,9 @@ app.get('/linkquestionanswers/:id', function (req, res) {
  * Get linked answer by questionId
  */
 app.get('/linkquestionanswers/question/:id', function (req, res) {
-    let sql = `select * from linkquestionanswer where questionId='${req.params.id}'`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ?? where ??=?`;
+    let inserts = ['linkquestionanswer', 'questionId', req.params.id]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -237,8 +249,9 @@ app.get('/linkquestionanswers/question/:id', function (req, res) {
  * Get linked answer by answerId
  */
 app.get('/linkquestionanswers/answer/:id', function (req, res) {
-    let sql = `select * from linkquestionanswer where answerId='${req.params.id}'`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ?? where ??=?`;
+    let inserts = ['linkquestionanswer', 'answerId', req.params.id]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -254,8 +267,9 @@ app.get('/linkquestionanswers/answer/:id', function (req, res) {
  * Insert linkQuestionAnswer 
  */
 app.post('/linkquestionanswers/', function (req, res) {
-    let sql = `insert into linkquestionanswer (questionId, answerId) values ('${req.body.questionId}', '${req.body.answerId}');`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `insert into ?? (??, ??) values (?, ?);`;
+    let inserts = ['linkquestionanswer', 'questionId', 'answerId', req.body.questionId, req.body.answerId]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -276,8 +290,9 @@ app.post('/linkquestionanswers/', function (req, res) {
  * Delete linkQuestionAnswer 
  */
 app.post('/linkquestionanswers/delete', function (req, res) {
-    let sql = `delete from linkquestionanswer where questionId='${req.body.questionId}' and answerId='${req.body.answerId}'`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `delete from ?? where ??=? and ??=?`;
+    let inserts = ['linkquestionanswer', 'questionId', req.body.questionId, 'answerId', req.body.answerId]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -302,8 +317,9 @@ app.post('/linkquestionanswers/delete', function (req, res) {
  * Get linked QuizQuestion
  */
 app.get('/linkquizquestions', function (req, res) {
-    let sql = `select * from linkquizquestion`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ??`;
+    let inserts = ['linkquizquestion']
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -319,8 +335,9 @@ app.get('/linkquizquestions', function (req, res) {
  * Get linked QuizQuestion by id
  */
 app.get('/linkquizquestions/:id', function (req, res) {
-    let sql = `select * from linkquizquestion where id='${req.params.id}'`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ?? where ??=?`;
+    let inserts = ['linkquizquestion', 'id', req.params.id]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -336,8 +353,9 @@ app.get('/linkquizquestions/:id', function (req, res) {
  * Get linked QuizQuestion by quizId
  */
 app.get('/linkquizquestions/quiz/:id', function (req, res) {
-    let sql = `select * from linkquizquestion where quizId='${req.params.id}'`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ?? where ??=?`;
+    let inserts = ['linkquizquestion', 'quizId', req.params.id]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -353,8 +371,9 @@ app.get('/linkquizquestions/quiz/:id', function (req, res) {
  * Get linked QuizQuestion by answerId
  */
 app.get('/linkquizquestions/question/:id', function (req, res) {
-    let sql = `select * from linkquizquestion where questionId='${req.params.id}'`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ?? where ??=?`;
+    let inserts = ['linkquizquestion', 'questionId', req.params.id]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -370,8 +389,9 @@ app.get('/linkquizquestions/question/:id', function (req, res) {
  * Insert linkQuizQuestion
  */
 app.post('/linkquizquestions/', function (req, res) {
-    let sql = `insert into linkquizquestion (quizId, questionId) values ('${req.body.quizId}', '${req.body.questionId}');`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `insert into ?? (??, ??) values (?, ?);`;
+    let inserts = ['linkquizquestion', 'quizId', 'questionId', req.body.quizId, req.body.questionId]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -392,8 +412,9 @@ app.post('/linkquizquestions/', function (req, res) {
  * Delete linkQuizQuestion 
  */
 app.post('/linkquizquestions/delete', function (req, res) {
-    let sql = `delete from linkquizquestion where quizId='${req.body.quizId}' and questionId='${req.body.questionId}'`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `delete from ?? where ??=? and ??=?`;
+    let inserts = ['linkquizquestion', 'quizId', req.body.quizId, 'questionId', req.body.questionId]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -418,8 +439,9 @@ app.post('/linkquizquestions/delete', function (req, res) {
  * Get questions
  */
 app.get('/questions', function (req, res) {
-    let sql = `select * from question`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ??`;
+    let inserts = ['question']
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -435,8 +457,9 @@ app.get('/questions', function (req, res) {
  * Get question by id
  */
 app.get('/questions/:id', function (req, res) {
-    let sql = `select * from question where id=${req.params.id}`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ?? where ??=?`;
+    let inserts = ['question', 'id', req.params.id]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code.code
@@ -452,8 +475,9 @@ app.get('/questions/:id', function (req, res) {
  * Insert question 
  */
 app.post('/questions', function (req, res) {
-    let sql = `insert into question (question, questionTypeId, domainId) values('${req.body.question}', '${req.body.questionTypeId}', '${req.body.domainId}');`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `insert into ?? (??, ??, ??) values(??, ?, ?);`;
+    let inserts = ['question', 'question', 'questionTypeId', 'domainId', req.body.question, req.body.questionTypeId, req.body.domainId]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -475,8 +499,9 @@ app.post('/questions', function (req, res) {
  * Delete question 
  */
 app.delete('/questions/:id', function (req, res) {
-    let sql = `delete from question where id='${req.params.id}'`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `delete from ?? where ??=?`;
+    let inserts = ['question', 'id', req.params.id]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -500,8 +525,9 @@ app.delete('/questions/:id', function (req, res) {
  * Get QuestionTypes
  */
 app.get('/questiontypes', function (req, res) {
-    let sql = `select * from questiontype`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ??`;
+    let inserts = ['questiontype']
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -517,8 +543,9 @@ app.get('/questiontypes', function (req, res) {
  * Get QuestionTypes by id
  */
 app.get('/questiontypes/:id', function (req, res) {
-    let sql = `select * from questiontype where id=${req.params.id}`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ?? where ??=?`;
+    let inserts = ['questiontype', 'id', req.params.id]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code.code
@@ -542,8 +569,9 @@ app.get('/questiontypes/:id', function (req, res) {
  * Get Quizs
  */
  app.get('/quizs', function (req, res) {
-    let sql = `select * from quiz`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ??`;
+    let inserts = ['quiz']
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -559,8 +587,9 @@ app.get('/questiontypes/:id', function (req, res) {
  * Get quiz by id
  */
 app.get('/quizs/:id', function (req, res) {
-    let sql = `select * from quiz where id=${req.params.id}`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `select * from ?? where ??=?`;
+    let inserts = ['quiz', 'id', req.params.id]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code.code
@@ -576,8 +605,9 @@ app.get('/quizs/:id', function (req, res) {
  * Insert quiz
  */
  app.post('/quizs', function (req, res) {
-    let sql = `insert into quiz (quiz, duration) values('${req.body.quiz}', '${req.body.duration}');`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `insert into ?? (??, ??) values('??', '??');`;
+    let inserts = ['quiz', 'duration', req.body.quiz, req.body.duration]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
@@ -598,8 +628,9 @@ app.get('/quizs/:id', function (req, res) {
  * Delete quiz 
  */
 app.delete('/quizs/:id', function (req, res) {
-    let sql = `delete from quiz where id='${req.params.id}'`;
-    db.query(sql, function (err, data, fields) {
+    let sql = `delete from ?? where ??=?`;
+    let inserts = ['quiz', 'id', req.params.id]
+    db.query(mysql.format(sql, inserts), function (err, data, fields) {
         if (err) {
             res.status(500).json({
                 message: err.code
